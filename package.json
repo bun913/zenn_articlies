@@ -1,0 +1,23 @@
+{
+  "name": "zenn_articlies",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bun913/zenn_articlies.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bun913/zenn_articlies/issues"
+  },
+  "homepage": "https://github.com/bun913/zenn_articlies#readme",
+  "dependencies": {
+    "zenn-cli": "^0.1.106"
+  }
+}
