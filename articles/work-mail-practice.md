@@ -55,8 +55,6 @@ WorkSpaceに入るとまず組織の作成をおこないます
 - Improved security
     - SPFのための設定など
 
-![DNSレコードの設定](/images/workmail/domain.png)
-
 これら全てをDNSサーバーで登録します（私の場合お名前.comを今回利用しましたが、Route53で大丈夫です)
 
 なお、SPFなどについては他のサイトにたくさんわかりやすい記事がありますので、ご参照ください
