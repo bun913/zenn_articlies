@@ -37,6 +37,10 @@ https://railsguides.jp/security.html#%E3%82%AF%E3%83%AD%E3%82%B9%E3%82%B5%E3%82%
 
 最初のCSRFトークンは Railsによって返却されるviewのmetaタグに以下のように埋め込まれており、これを取得してAPIのリクエストヘッダーに組み込む必要があります。
 
+```html
+<meta name='csrf-token' content='THE-TOKEN'>
+```
+
 CSRFトークンを HTMLのmetaタグから取得する時には `CSS Selector Extractor` を利用するのが一番簡単でした。(正規表現抽出よりこちらが簡単でした)
 
 以下のブログを参考に、このように設定しました。
