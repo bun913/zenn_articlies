@@ -29,6 +29,27 @@ https://aws.amazon.com/jp/solutions/implementations/distributed-load-testing-on-
 
 ## ログイン周り
 
+### CSRF対策
+
+Railsなんかでも簡単にCSRF攻撃対策を導入できます。
+
+https://railsguides.jp/security.html#%E3%82%AF%E3%83%AD%E3%82%B9%E3%82%B5%E3%82%A4%E3%83%88%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E3%83%95%E3%82%A9%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%AA-csrf
+
+最初のCSRFトークンは Railsによって返却されるviewのmetaタグに以下のように埋め込まれており、これを取得してAPIのリクエストヘッダーに組み込む必要があります。
+
+CSRFトークンを HTMLのmetaタグから取得する時には `CSS Selector Extractor` を利用するのが一番簡単でした。(正規表現抽出よりこちらが簡単でした)
+
+以下のブログを参考に、このように設定しました。
+
+```
+参照名: csrfToken
+CSS Selector expression: meta[name=csrf-token]
+Attribute: content
+一致番号: 1
+```
+
+https://simple-minds-think-alike.moritamorie.com/entry/jmeter-rails-csrf-token
+
 ### HTTPレスポンスヘッダーから任意の値を抽出
 
 よくあるのがBearer認証のためのトークンをレスポンスヘッダーに含めていて、リクエスト時にそれを送るパターンですね。
