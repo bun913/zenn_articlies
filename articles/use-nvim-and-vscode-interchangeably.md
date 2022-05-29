@@ -1,27 +1,26 @@
 ---
-title: "nvimとVSCodeを必要に応じて使い分けられるような自分なりの設定"
+title: "nvimとVSCodeを共存させて使い分けするためのオレオレ設定"
 emoji: "✌️"
 type: "tech"
 topics: ["nvim", "vscode"]
-published: false
+published: true
 ---
 
 こんにちは。
 nvimとVSCodeを行ったりきたりしているbunです。
 
-どちらのエディターもライトユーザー感丸出しですが、vimとVSCodeを両方使っている方は意外といらっしゃるのではないかと思います。
+私の場合どちらのエディターもライトユーザー感丸出しですが、vimとVSCodeを両方使っている方は意外といらっしゃるのではないかと思います。
 
 私の場合は
 
-- 基本的にコーディングやメモはnvimで行いたい
+- 基本的にコーディングやメモはnvimで行いたい(サクサク動くし、かっこいいから！！)
 - ペアプロやVSCodeの拡張機能が利用したい時にはVSCodeを違和感なく利用できるようにしたい
-  - その他古いFWを使っているプロジェクトでVSCode用のフォーマッターは用意できたがvimでやろうとするのは面倒な場合など
 
 といった感じで使い分けたいと考えています。
 
 どっちの良いところも享受できれば嬉しいなと。
 
-以前は [VSCodeのnvim拡張を使っていた](https://zenn.dev/bun913/articles/02785aed0ba50e)のですが、どうしても怪しい挙動をすることも多く、nvimのさくさく感も味わいたいので、 `基本ターミナルに住むようにして、必要に応じてGUIの世界に戻ろう` と決めたのが1週間前くらいの出来事です。
+以前は [VSCodeのnvim拡張をメインで使っていた](https://zenn.dev/bun913/articles/02785aed0ba50e)のですが、どうしても怪しい挙動をすることも多く、nvimのさくさく感も味わいたいので、 `基本ターミナルに住むようにして、必要に応じてGUIの世界に戻ろう` と決めたのが1週間前くらいの出来事です。
 
 ただ VSCodeを使う時にもnvimを使う時にも似たような開発体験をするためには、各種プラグインの導入・キーバインドの設定などが必要であるため、1週間くらいかけて諸々抜本的なnvim環境の作成しました。
 
@@ -40,7 +39,7 @@ nvimとVSCodeを行ったりきたりしているbunです。
 
 以下のような意図でnvim等の設定を行いました。
 
-- 全てのキーバインドを2つのエディタで合わせるのではなく、タブの移動とかファイラーの操作感などの基本操作を似せて、違和感なく両方のエディターを使えるようにする
+- 全てのキーバインドを2つのエディタで合わせるのではなく、タブの移動とかファイラーの操作などの感覚を似せて、違和感なく両方のエディターを使えるようにする
 - 双方のエディターに便利な機能があるので、得意なことを得意な方にやってもらう
 
 また、筆者は弱々vimmerですので、以下に記載する内容より良い方法・設定があると思いますのでご容赦ください。
@@ -55,7 +54,7 @@ nvimとVSCodeを行ったりきたりしているbunです。
 
 基本的なvimの操作方法などはここでは割愛しております。
 
-開発において似たような操作感にするためにした設定内容・実際にどのように動かすのかご紹介いたします。
+設定内容のご紹介や、実際にどのように動かすのかご紹介いたします。
 
 
 ### 基本道具
@@ -82,7 +81,7 @@ https://github.com/neovim/neovim
 
 以下、nvimをvimと表現します。また、私は `vim` を `nvim` の aliasとして登録しておりますので、 `vim` というコマンドで `nvim` を起動しております。
 
-### 基本動作
+### vimとtmuxの統合
 
 まずはターミナルで tmuxを起動します。
 
@@ -105,9 +104,27 @@ https://github.com/neovim/neovim
 
 ![vimのペイン移動](/images/nvim/vim_movement.gif)
 
-また、後述する `vim-tmux-navigator` という vimの拡張機能を利用して vimで分割したペイン、tmuxで分割したペイン双方の移動も同様に `ctrl` キーで移動できるようにしています。
+この辺りの設定は`vim-tmux-navigator` という vimの拡張機能を利用して vimで分割したペイン、tmuxで分割したペイン双方の移動も同様に `ctrl` キーで移動できるようにしています。
+
+https://github.com/christoomey/vim-tmux-navigator
 
 ![vim<->tmuxペイン移動](/images/nvim/vim_tmux_movement.gif)
+
+tmuxの設定ファイルを以下のように記述しています。
+
+```:.tmux.conf
+# Vim Tmux Navigator
+is_zsh="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE 'Ss\\+\\s*-zsh$'"
+is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE 'S\\+\\s*?g?(view|n?vim?x?)(diff)?$'"
+is_fzf="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE 'S\\+\\s*fzf$'"
+is_peco="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE 'S\\+\\s*peco$'"
+bind -n C-h run "($is_zsh && tmux send-keys C-h) || ($is_vim && tmux send-keys C-h) || ($is_fzf && tmux send-keys C-h) || ($is_peco && tmux send-keys C-h) || tmux select-pane -L"
+bind -n C-j run "($is_zsh && tmux send-keys C-j) || ($is_vim && tmux send-keys C-j) || ($is_fzf && tmux send-keys C-j) || ($is_peco && tmux send-keys C-j) || tmux select-pane -D"
+bind -n C-k run "($is_zsh && tmux send-keys C-k) || ($is_vim && tmux send-keys C-k) || ($is_fzf && tmux send-keys C-k) || ($is_peco && tmux send-keys C-k) || tmux select-pane -U"
+bind -n C-l if-shell "$is_vim" "send-keys C-l"  "select-pane -R"
+```
+
+### vim内でのバッファ(VSCodeのタブ)移動
 
 私はVSCodeで `cmd+l` で右のタブに、 `cmd+h` で左のタブに移動するように設定しております。
 
@@ -125,32 +142,24 @@ https://github.com/neovim/neovim
 
 そのためvimで開いたバッファは `cmd` を押しながら`l` や `h` を押下することで、タブを切り替える用に移動できるように設定しております。
 
-なお筆者は 左のoptキーをメタキーとして設定しています。その代わり全く使っていなかった右の cmdキーを左のoptionキーとして動作するように設定しております。
-
-※ **以下gifでは `l` `h` としか表示されておりませんが、実際は `cmd`　を押しながら `l` や`h`を押下しています**
+**以下gifでは `l` `h` としか表示されておりませんが、実際は `cmd`　を押しながら `l` や`h`を押下しています**
 
 ![vimのタブ移動](/images/nvim/vim_tab_movement.gif)
 
-基本的な動作はこんな感じです。
-
-`Ctrl+p` で表示されたかっこいい ファジーファインダーなどは別途プラグインの際にご紹介します。
+※ `Ctrl+p` で表示された画面(ファジーファインダー)は別途プラグインの際にご紹介します。
 
 
-## キーバインドの設定
-
-### vimのキーバインド等
-
-`cmd+l` でvimで開いた次のバッファに移動、 `cmd+h` でvimで開いた前のバッファに移動するためにvim側では以下のように設定しております。
-
-
-```vim
+```vim:vimの設定ファイル
 " バッファの移動をメタキーで
 nnoremap <silent> <M-h> :bprev<CR>
 nnoremap <silent> <M-l> :bnext<CR>
 nnoremap <silent> <M-w> :bd<CR>
 ```
 
-これに加えて、以下に紹介するツールで、特定のアプリケーションを動かしている際にのみキーバインドを変更するようにしております。
+このままですと Optionキーを押下して `l` 、 `h` でバッファの切り替えとなってしまうため、後述する `Karabiner-Elements` というアプリでターミナル系のアプリケーションを開いている時のキーバインドを変更しています。
+
+
+## キーバインドの設定
 
 ### Karabiner-Elements
 
@@ -202,6 +211,8 @@ https://karabiner-elements.pqrs.org/
 }
 // 同じような設定であるため hは省略
 ```
+
+※ なお筆者は 左のoptキーをメタキーとして設定しています。その代わり全く使っていなかった右の cmdキーを左のoptionキーとして動作するように設定しております。
 
 ## vimで利用しているプラグインについて
 
@@ -326,6 +337,7 @@ https://github.com/Shougo/defx.nvim
 - 新規でファイルを追加する時
 - ファイル・ディレクトリをコピーする時
 - ファイル・ディレクトリの名前を変更する時
+- 俯瞰でプロジェクトの構造をみたい時
 
 などに利用しています。
 
@@ -441,7 +453,7 @@ https://zenn.dev/monaqa/articles/2021-12-22-vim-nvim-treesitter-highlight
 
 ### 最後に
 
-ライトvimmerですが、 `vimはいいぞ・・・`
+ライトvimmerですが、 **vimはいいぞ・・・**
 
 今回ご紹介した設定は こちらのリポジトリで管理しておりますので、必要に応じて参考にしていただければと思います。
 
