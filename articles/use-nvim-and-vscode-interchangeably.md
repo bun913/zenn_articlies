@@ -442,3 +442,8 @@ https://zenn.dev/monaqa/articles/2021-12-22-vim-nvim-treesitter-highlight
 ### 最後に
 
 ライトvimmerですが、 `vimはいいぞ・・・`
+
+今回ご紹介した設定は こちらのリポジトリで管理しておりますので、必要に応じて参考にしていただければと思います。
+
+https://github.com/bun913/dotfiles
+
