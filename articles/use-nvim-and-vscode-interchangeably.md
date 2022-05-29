@@ -168,3 +168,115 @@ https://karabiner-elements.pqrs.org/
 ```
 
 ## vimで利用しているプラグインについて
+
+私がvimを使うにあたり利用しているプラグイン・設定しているショートカットなどをご紹介します。
+
+なお、ここではプラグイン管理の導入方法などはご紹介しておりませんのでご了承ください。
+
+### プラグイン管理
+
+dein.vim というプラグインを利用しています。
+
+https://github.com/Shougo/dein.vim
+
+dein自体の導入方法などは上記公式や別途記事をご参照ください。
+
+
+### ファジーファインダー
+
+telescope.vim というプラグインを利用しています。
+
+VSCodeでいう `Cmd+p` でファイルを検索するような機能をイメージしてもらえれば良いと思います。
+
+以下のようにファイル検索は `Ctrl+p`  をマッピングしております。
+
+![コーディング風景](/images/nvim/file_finder.gif)
+
+さらに `grep` のように特定の文字列が含まれたファイルなどを探している場合には、<Ctrl+g> で検索できるようにしております。
+
+![コーディング風景](/images/nvim/grep_finder.gif)
+
+このプラグインのすごいところは、ファイルのプレビューも表示してくれるという点です。(上記例では作業スペースが狭くて見えておりませんが・・・・)
+
+以下のような形でプレビューをみることができます。
+
+![コーディング風景](/images/nvim/fzf_preview.gif)
+
+この点に関して、VSCodeの `Cmd+p` よりとても気に入っています。
+
+またこの `ctrl + P` と `ctrl + G` とそれぞれ大文字で、プロジェクトルート(最初にvimで開いたディレクトリ)ではなく、現在バッファで開いているファイルのルートを起点に検索するためのキーバインドも入れております。
+
+```vim
+nnoremap <C-p> <cmd>Telescope find_files<cr>
+nnoremap <C-g> <cmd>Telescope live_grep<cr>
+" プロジェクトルートではなく現在開いているファイルを起点にファイル検索
+nnoremap <C-P> <cmd>lua require('telescope.builtin').find_files( { cwd = vim.fn.expand('%:p:h') })<cr>
+nnoremap <C-G> <cmd>lua require('telescope.builtin').live_grep( { cwd = vim.fn.expand('%:p:h') })<cr>
+
+```
+
+## ファイル横断での置換
+
+VSCodeでいう以下画像のような一括置換の機能になります。
+
+![VSCodeの置換](/images/nvim/vscode_replace.png)
+
+これに関しては上記でご紹介した telescope.vim とvim-qfreplaceというプラグインを利用しています。
+
+https://github.com/thinca/vim-qfreplace/blob/master/doc/qfreplace.jax
+
+例えば以下のように `test` という文字列が含まれた複数のファイルについて、 `dest` という文字列に置き換える場合のオペレーションは以下のような形になります。
+
+![全置換](/images/nvim/replace_all.gif)
+
+結構手数が多いですが
+
+- `telescope.vim` でファイル横断で `test` という文字列を検索
+- `ctrl+a` で `test` という文字列が見つかった部分を vimのQuickfixに送る
+- `vim-qfreplace` の機能で QuickFixに対して置換を行う
+  - 上記では `test` という文字列を検索
+  - `%s//dest/g` というコマンドで一括置換を行っています
+  - `%s/test/dest/g` と同じことを行っています。
+
+[参考]
+
+vimgrep と QuickFixについて
+
+https://qiita.com/yuku_t/items/0c1aff03949cb1b8fe6b
+
+もちろんファイル単位で置換するか選択することもできますし、 1箇所ずつ置換するか確認できます。
+
+今度は逆に `dest` という文字列を `test` に変換してみます
+
+![選択置換](/images/nvim/replace_select.gif)
+
+- `telescope.vim` でQuickFixに送るものを選択する場合 `tab` で選択してから、 `ctrl+q`で送ります
+- 今度は `%s//dest/gc` として1箇所ずつ確認してから置換を行っています
+
+以下のような設定をしています。
+
+telescope
+
+```vim
+lua <<EOF
+require('telescope').setup{
+  defaults = {
+    mappings = {
+      i = {
+# ctrl + a　で検出された結果全てをquickfixに送る
+        ["<C-a>"] = require('telescope.actions').send_to_qflist + require('telescope.actions').open_qflist,
+# ctrl + qで選択した部分をquickfixに送る
+        ["<C-q>"] = require('telescope.actions').send_selected_to_qflist + require('telescope.actions').open_qflist
+      }
+    }
+  }
+}
+EOF
+```
+
+qfreplace
+
+```vim
+nnoremap qf :Qfreplace<CR>
+```
+
