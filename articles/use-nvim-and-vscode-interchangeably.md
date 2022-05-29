@@ -23,7 +23,8 @@ nvimとVSCodeを行ったりきたりしているbunです。
 
 以前は [VSCodeのnvim拡張を使っていた](https://zenn.dev/bun913/articles/02785aed0ba50e)のですが、どうしても怪しい挙動をすることも多く、nvimのさくさく感も味わいたいので、 `基本ターミナルに住むようにして、必要に応じてGUIの世界に戻ろう` と決めたのが1週間前くらいの出来事です。
 
-ただ VSCodeを使う時にもnvimを使う時にも似たような開発体験をするためには、各種プラグインの導入・キーバインドの設定などが必要であるため、1週間くらいかけて諸々抜本的なnvim環境の作成し直しを行いました。
+ただ VSCodeを使う時にもnvimを使う時にも似たような開発体験をするためには、各種プラグインの導入・キーバインドの設定などが必要であるため、1週間くらいかけて諸々抜本的なnvim環境の作成しました。
+
 
 同僚「**そんなことするくらいならVSCodeでいいじゃん・・・**」
 
@@ -33,11 +34,29 @@ nvimとVSCodeを行ったりきたりしているbunです。
 
 同僚(クソデカため息)「**そんなことするくらいならVSCodeでいいじゃん・・・**」
 
-というやりとりもあったとか。
+というやりとりもあったとか・・・
 
-※ **今回ご紹介している各種設定はそもそも vim , VSCodeを同じように利用しようとしなければ良いだけの話です。「変なことしている奴がいるなぁ・・・と生優しく見守っていただければ幸いです」**
+## 概要・前提条件など
+
+以下のような意図でnvim等の設定を行いました。
+
+- 全てのキーバインドを2つのエディタで合わせるのではなく、タブの移動とかファイラーの操作感などの基本操作を似せて、違和感なく両方のエディターを使えるようにする
+- 双方のエディターに便利な機能があるので、得意なことを得意な方にやってもらう
+
+また、筆者は弱々vimmerですので、以下に記載する内容より良い方法・設定があると思いますのでご容赦ください。
+
+
+【筆者の環境】
+
+- macOS BigSur(AppleSiliconとIntelチップ両方で動作確認済み)
+
 
 ## コーディングの基本道具・基本動作
+
+基本的なvimの操作方法などはここでは割愛しております。
+
+開発において似たような操作感にするためにした設定内容・実際にどのように動かすのかご紹介いたします。
+
 
 ### 基本道具
 
@@ -90,7 +109,23 @@ https://github.com/neovim/neovim
 
 ![vim<->tmuxペイン移動](/images/nvim/vim_tmux_movement.gif)
 
-vimで開いたバッファは `cmd` を押しながら、さながらタブを切り替える用に移動しています。
+私はVSCodeで `cmd+l` で右のタブに、 `cmd+h` で左のタブに移動するように設定しております。
+
+```json
+// VSCodeのKeyBinding.jsonの設定
+{
+    "key": "cmd+l",
+    "command": "workbench.action.nextEditor"
+},
+{
+  "key": "cmd+h",
+  "command": "workbench.action.previousEditor"
+}
+```
+
+そのためvimで開いたバッファは `cmd` を押しながら`l` や `h` を押下することで、タブを切り替える用に移動できるように設定しております。
+
+なお筆者は 左のoptキーをメタキーとして設定しています。その代わり全く使っていなかった右の cmdキーを左のoptionキーとして動作するように設定しております。
 
 ※ **以下gifでは `l` `h` としか表示されておりませんが、実際は `cmd`　を押しながら `l` や`h`を押下しています**
 
@@ -106,6 +141,7 @@ vimで開いたバッファは `cmd` を押しながら、さながらタブを�
 ### vimのキーバインド等
 
 `cmd+l` でvimで開いた次のバッファに移動、 `cmd+h` でvimで開いた前のバッファに移動するためにvim側では以下のように設定しております。
+
 
 ```vim
 " バッファの移動をメタキーで
@@ -164,7 +200,7 @@ https://karabiner-elements.pqrs.org/
     }
   ]
 }
-
+// 同じような設定であるため hは省略
 ```
 
 ## vimで利用しているプラグインについて
@@ -280,3 +316,129 @@ qfreplace
 nnoremap qf :Qfreplace<CR>
 ```
 
+
+### ファイラー
+
+`degx.nvim` というプラグインをファイラーとして利用しております。
+
+https://github.com/Shougo/defx.nvim
+
+- 新規でファイルを追加する時
+- ファイル・ディレクトリをコピーする時
+- ファイル・ディレクトリの名前を変更する時
+
+などに利用しています。
+
+`ctrl+n` でファイラーが開くようにしています。
+
+![ファイラーの基本操作](/images/nvim/filer_basic.gif)
+
+defxはかなり自由にカスタマイズすることができるようですが、私は以下のように設定を入れております。
+
+- `N` で新規ファイルを作成
+- `M` で新規ディレクトリを作成
+- `c` でコピー
+- `p` でペースト
+
+defxの全設定はこちら。
+
+https://github.com/bun913/dotfiles/blob/main/config/nvim/rc/defx.rc.vim
+
+なお、VSCodeのサイドバーに表示されるファイラーでも似たような操作ができるようにキーバインドを以下のように設定しております。
+
+```json
+  // 新規ファイル作成
+  {
+    "key": "shift+n",
+    "command": "explorer.newFile"
+  },
+  // 新規フォルダ作成
+  {
+    "key": "shift+m",
+    "command": "explorer.newFolder"
+  },
+  // dでファイルを削除
+  {
+    "key": "d",
+    "command": "deleteFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceReadonly && !inputFocus"
+  },
+  // rでファイルのリネーム
+  {
+    "key": "r",
+    "command": "renameFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "enter",
+    "command": "-renameFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  // vで分割して開く
+  {
+    "key": "v",
+    "command": "explorer.openToSide",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  // ファイルのコピー
+  {
+    "key": "y",
+    "command": "filesExplorer.copy",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  // ファイルのペースト
+  {
+    "key": "p",
+    "command": "filesExplorer.paste",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+```
+
+### git操作
+
+私はターミナルで動作する `lazygit` を好んで使っています。
+(Go製なのでどの環境でも動かしやすくてとても好き)
+
+https://github.com/jesseduffield/lazygit
+
+vimから `lazygit` を呼び出せるように 以下プラグインを利用しております。
+
+https://github.com/kdheepak/lazygit.nvim
+
+以下のように設定していて、 `<Space>gg` でlazygitが起動するようになっております。
+
+```vim
+nnoremap <silent> <leader>gg :LazyGit<CR>
+```
+
+![lazygit](/images/nvim/lazygit.gif)
+
+### その他
+
+今回は開発に当たっての操作感という趣旨ですので詳細は割愛いたしますが、以下のようなプラグインを入れており、もはや必須です。
+
+LSP(言語ごとのインテリセンスやフォーマッターなど)
+
+- vim-lsp
+- vim-lsp-settings
+
+
+mattnさんのプラグインは本当に神。
+
+https://zenn.dev/mattn/articles/b83f9d94202914
+
+
+言語ごとに色をつけたり、インデントを調整したりは以下のプラグインを利用しております。
+
+- nvim-treesitter
+
+https://github.com/nvim-treesitter/nvim-treesitter
+
+https://zenn.dev/duglaser/articles/c02d6a937a48df
+
+https://zenn.dev/monaqa/articles/2021-12-22-vim-nvim-treesitter-highlight
+
+
+### 最後に
+
+ライトvimmerですが、 `vimはいいぞ・・・`
