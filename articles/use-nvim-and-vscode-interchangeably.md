@@ -330,7 +330,7 @@ nnoremap qf :Qfreplace<CR>
 
 ### ファイラー
 
-`degx.nvim` というプラグインをファイラーとして利用しております。
+`defx.nvim` というプラグインをファイラーとして利用しております。
 
 https://github.com/Shougo/defx.nvim
 
