@@ -251,14 +251,14 @@ VSCodeでいう `Cmd+p` でファイルを検索するような機能をイメ�
 
 この点に関して、VSCodeの `Cmd+p` よりとても気に入っています。
 
-またこの `ctrl + P` と `ctrl + G` とそれぞれ大文字で、プロジェクトルート(最初にvimで開いたディレクトリ)ではなく、現在バッファで開いているファイルのルートを起点に検索するためのキーバインドも入れております。
+またこの `Meta + P` と `Meta + G` と、プロジェクトルート(最初にvimで開いたディレクトリ)ではなく、現在バッファで開いているファイルのルートを起点に検索するためのキーバインドも入れております。
 
 ```vim
 nnoremap <C-p> <cmd>Telescope find_files<cr>
 nnoremap <C-g> <cmd>Telescope live_grep<cr>
 " プロジェクトルートではなく現在開いているファイルを起点にファイル検索
-nnoremap <C-P> <cmd>lua require('telescope.builtin').find_files( { cwd = vim.fn.expand('%:p:h') })<cr>
-nnoremap <C-G> <cmd>lua require('telescope.builtin').live_grep( { cwd = vim.fn.expand('%:p:h') })<cr>
+nnoremap <M-p> <cmd>lua require('telescope.builtin').find_files( { cwd = vim.fn.expand('%:p:h') })<cr>
+nnoremap <M-g> <cmd>lua require('telescope.builtin').live_grep( { cwd = vim.fn.expand('%:p:h') })<cr>
 
 ```
 
