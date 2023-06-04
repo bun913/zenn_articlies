@@ -1,0 +1,63 @@
+<mxfile host="65bd71144e">
+    <diagram name="ページ1のコピー" id="H7Nuqd5qgoZYds3bhfGV">
+        <mxGraphModel dx="275" dy="481" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+            <root>
+                <mxCell id="QdbKKEN2wJZKdiw5hNAE-0"/>
+                <mxCell id="QdbKKEN2wJZKdiw5hNAE-1" parent="QdbKKEN2wJZKdiw5hNAE-0"/>
+                <mxCell id="QdbKKEN2wJZKdiw5hNAE-2" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="QdbKKEN2wJZKdiw5hNAE-1">
+                    <mxGeometry x="150" y="280" width="120" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="QdbKKEN2wJZKdiw5hNAE-3" value="33歳" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="QdbKKEN2wJZKdiw5hNAE-1">
+                    <mxGeometry x="272" y="283" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="QdbKKEN2wJZKdiw5hNAE-4" value="5歳" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="QdbKKEN2wJZKdiw5hNAE-1">
+                    <mxGeometry x="190" y="402" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="QdbKKEN2wJZKdiw5hNAE-5" value="2歳" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="QdbKKEN2wJZKdiw5hNAE-1">
+                    <mxGeometry x="110" y="280" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="BWjRHixl8TfUCCMmKoYt-1" value="" style="endArrow=classic;html=1;" edge="1" parent="QdbKKEN2wJZKdiw5hNAE-1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="150" y="240" as="sourcePoint"/>
+                        <mxPoint x="250" y="270" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="BWjRHixl8TfUCCMmKoYt-4" value="1: ゴメです！" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="QdbKKEN2wJZKdiw5hNAE-1">
+                    <mxGeometry x="80" y="200" width="90" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="BWjRHixl8TfUCCMmKoYt-6" value="2: ポップです！" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="QdbKKEN2wJZKdiw5hNAE-1">
+                    <mxGeometry x="260" y="240" width="90" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="BWjRHixl8TfUCCMmKoYt-7" value="" style="endArrow=classic;html=1;" edge="1" parent="QdbKKEN2wJZKdiw5hNAE-1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="290" y="380" as="sourcePoint"/>
+                        <mxPoint x="230" y="440" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="BWjRHixl8TfUCCMmKoYt-9" value="3: ダイです！" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="QdbKKEN2wJZKdiw5hNAE-1">
+                    <mxGeometry x="220" y="500" width="80" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="KofrbmL3NTCW2D6ZPKk4" name="ページ1">
+        <mxGraphModel dx="206" dy="361" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+                    <mxGeometry x="150" y="280" width="120" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="33歳" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="272" y="283" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="5歳" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="190" y="402" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="2歳" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="110" y="280" width="30" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
