@@ -1,5 +1,5 @@
 ---
-title: "デンソークリエイトプログラミングコンテスト2023（AtCoder Beginner Contest 309）に参加したので冒頭4問を振り返ります"
+title: "デンソークリエイトプログラミングコンテスト2023に参加したので冒頭4問を振り返ります"
 emoji: "💻"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["AtCoder","競技プログラミング", "Python"]
