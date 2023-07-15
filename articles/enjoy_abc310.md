@@ -107,7 +107,7 @@ print(len(S))
 
 原案者の方の実装はとってもシンプルですね。
 
-<iframe class="hatenablogcard" style="width:100%;height:155px;max-width:680px;" title="解説 - freee プログラミングコンテスト2023（AtCoder Beginner Contest 310）" src="https://hatenablog-parts.com/embed?url=https://atcoder.jp/contests/abc310/editorial/6792" width="300" height="150" frameborder="0" scrolling="no"></iframe>
+https://atcoder.jp/contests/abc310/editorial/6792
 
 ## 最後に
 
