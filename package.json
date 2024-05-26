@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "preview": "zenn preview",
+    "new": "zenn new:article"
   },
   "repository": {
     "type": "git",
@@ -17,7 +18,7 @@
     "url": "https://github.com/bun913/zenn_articlies/issues"
   },
   "homepage": "https://github.com/bun913/zenn_articlies#readme",
-  "dependencies": {
-    "zenn-cli": "^0.1.152"
+  "devDependencies": {
+    "zenn-cli": "^0.1.153"
   }
 }
