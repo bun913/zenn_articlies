@@ -205,6 +205,8 @@ https://youtu.be/nsa-yNV7Xbg?si=s0m-iqgdBr135o2B&t=61
 
 実はこちらAtCoder側で利用可能な外部ライブラリとして明記いただいており、`numpy` や `pandas` などと同様に利用可能です。
 
+自分で改善を図るよりも、ここまで辿り着いていた方であれば素直にこのライブラリを利用するのが最も簡単かつ今後のコンテストでも使える知識になると思います。
+
 https://img.atcoder.jp/file/language-update/language-list.html
 
 ということで、実は `itertools の permutations` の部分を　`more_itertools distinct_permutations` に書き換えるだけで正答を得ることができました。
