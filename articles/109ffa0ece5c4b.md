@@ -29,7 +29,7 @@ https://qiita.com/drken/items/fd4e5e3630d0f5859067
   - 競プロに全てのリソースを割くことはできない
     - ので、公式の[AtCoderで強くなるには](https://info.atcoder.jp/more/practice/stronger)のとおり復習だけすることにしました
 
-## [A - Buy a Pen](https://atcoder.jp/contests/abc362/tasks/abc362_a)
+## [A - Piling Up](https://atcoder.jp/contests/abc363/tasks/abc363_a)
 
 ### 考えたこと
 
