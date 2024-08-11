@@ -1,5 +1,5 @@
 ---
-title: "3次元の累積和とはなんですかを学んじゃいましょう【AtCoder Beginner Contest 366 振り返り（茶）】"
+title: "3次元の累積和を学べるコンテストでした【AtCoder Beginner Contest 366 振り返り（茶）】"
 emoji: "🚌"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["AtCoder", "Python"]
