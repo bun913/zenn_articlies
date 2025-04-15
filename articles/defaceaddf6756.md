@@ -11,11 +11,11 @@ publication_name: "moneyforward"
 
 本日[JaSST nano vol.47](https://jasst-nano.connpass.com/event/349312/)というイベントにて、私がSDET（Software Development Engineer in Test）という職種になってから感じていることについて赤裸々に発表しました。
 
-TODO: ここにSpeakerDeckの資料を貼る
-
 この内容について軽く触るとともに、せっかくなので今回からチャレンジしてみた[Marp](https://qiita.com/piyonakajima/items/1084e2f2ba765e855271)と生成AIを活用したスライド作成の体験が良かったので、それについて記事にしてみました。
 
 ## 発表の内容
+
+@[speakerdeck](33d690fd2d5a474e857d629d0f5f434f)
 
 - SDET という日本では珍しい職種で働いています
     - 名前からすると「Software Development Engineer がテスト側にいる」という感じだと思います
