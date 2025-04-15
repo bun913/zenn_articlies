@@ -19,6 +19,6 @@
   },
   "homepage": "https://github.com/bun913/zenn_articlies#readme",
   "devDependencies": {
-    "zenn-cli": "^0.1.153"
+    "zenn-cli": "^0.1.158"
   }
 }
