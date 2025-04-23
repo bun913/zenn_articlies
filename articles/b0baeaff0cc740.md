@@ -1,5 +1,5 @@
 ---
-title: "Playwright MCPのNetwork機能を改良して非開発者でもAPIの調査から実装まで自然言語でやれるか試してみた"
+title: "Playwright MCPのNetwork機能を改良してAPIテストの調査から実装まで自然言語でやれるか試してみた"
 emoji: "⏺️"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["mcp", "playwright"]
