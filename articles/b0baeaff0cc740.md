@@ -180,7 +180,7 @@ https://zenn.dev/moneyforward/articles/6deaa22428a109
 
 https://github.com/microsoft/playwright-mcp/pull/251
 
-### やっぱりコンテキストウインドウがいっぱいになってしまうため改良
+### やっぱりコンテキストウインドウがいっぱいになってしまった
 
 実際に動作している業務サービスや人気のWebアプリケーションなどでは、多くのNetwork上でのリクエストが観測できますよね。
 
