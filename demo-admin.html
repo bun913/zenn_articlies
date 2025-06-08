@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>システム管理画面 - Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .search-section {
+            background: white;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .search-form {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        label {
+            font-weight: 500;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        input[type="text"] {
+            padding: 0.75rem 1rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+            min-width: 200px;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            margin-top: 1.5rem;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .results-section {
+            background: white;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .results-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .results-count {
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .user-card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .user-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+        }
+
+        .user-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .user-info h3 {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 0.2rem;
+        }
+
+        .user-id {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .user-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .detail-label {
+            font-weight: 500;
+            color: #555;
+        }
+
+        .detail-value {
+            color: #333;
+        }
+
+        .status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status.active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status.inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+
+        .url-info {
+            background: #e3f2fd;
+            border: 1px solid #bbdefb;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .url-info strong {
+            color: #1976d2;
+        }
+
+        @media (max-width: 768px) {
+            .search-form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .form-group {
+                width: 100%;
+            }
+            
+            input[type="text"] {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>🔧 システム管理画面</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="url-info">
+            <strong>💡 Raycast Quicklinks デモ:</strong> 
+            URLパラメーター <code>?id=123</code> を使用して直接ユーザーを検索できます。
+            例: <code>demo-admin.html?id=123</code>
+        </div>
+
+        <div class="search-section">
+            <form class="search-form" onsubmit="searchUser(event)">
+                <div class="form-group">
+                    <label for="userId">ユーザーID</label>
+                    <input type="text" id="userId" placeholder="例: 123">
+                </div>
+                <div class="form-group">
+                    <label for="userName">ユーザー名</label>
+                    <input type="text" id="userName" placeholder="例: 田中太郎">
+                </div>
+                <button type="submit" class="search-btn">🔍 検索</button>
+            </form>
+        </div>
+
+        <div class="results-section" id="resultsSection" style="display: none;">
+            <div class="results-header">
+                <h2 class="results-title">検索結果</h2>
+                <span class="results-count" id="resultsCount">0件</span>
+            </div>
+            <div id="resultsContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        // デモ用のユーザーデータ
+        const demoUsers = {
+            '123': {
+                id: '123',
+                name: '田中太郎',
+                email: 'tanaka@example.com',
+                department: '開発部',
+                role: 'シニアエンジニア',
+                status: 'active',
+                lastLogin: '2024-01-15 14:30',
+                projects: '3件'
+            },
+            '456': {
+                id: '456',
+                name: '佐藤花子',
+                email: 'sato@example.com',
+                department: 'デザイン部',
+                role: 'UIデザイナー',
+                status: 'active',
+                lastLogin: '2024-01-15 16:45',
+                projects: '5件'
+            },
+            '789': {
+                id: '789',
+                name: '山田次郎',
+                email: 'yamada@example.com',
+                department: 'マーケティング部',
+                role: 'マネージャー',
+                status: 'inactive',
+                lastLogin: '2024-01-10 09:15',
+                projects: '2件'
+            }
+        };
+
+        // ページ読み込み時にURLパラメーターをチェック
+        window.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const userId = urlParams.get('id');
+            
+            if (userId) {
+                document.getElementById('userId').value = userId;
+                performSearch(userId);
+            }
+        });
+
+        function searchUser(event) {
+            event.preventDefault();
+            const userId = document.getElementById('userId').value.trim();
+            const userName = document.getElementById('userName').value.trim();
+            
+            if (userId) {
+                performSearch(userId);
+            } else if (userName) {
+                searchByName(userName);
+            } else {
+                showNoResults();
+            }
+        }
+
+        function performSearch(userId) {
+            const user = demoUsers[userId];
+            const resultsSection = document.getElementById('resultsSection');
+            const resultsContainer = document.getElementById('resultsContainer');
+            const resultsCount = document.getElementById('resultsCount');
+            
+            resultsSection.style.display = 'block';
+            
+            if (user) {
+                resultsCount.textContent = '1件';
+                resultsContainer.innerHTML = createUserCard(user);
+            } else {
+                showNoResults();
+            }
+        }
+
+        function searchByName(userName) {
+            const matchingUsers = Object.values(demoUsers).filter(user => 
+                user.name.includes(userName)
+            );
+            
+            const resultsSection = document.getElementById('resultsSection');
+            const resultsContainer = document.getElementById('resultsContainer');
+            const resultsCount = document.getElementById('resultsCount');
+            
+            resultsSection.style.display = 'block';
+            
+            if (matchingUsers.length > 0) {
+                resultsCount.textContent = `${matchingUsers.length}件`;
+                resultsContainer.innerHTML = matchingUsers.map(user => createUserCard(user)).join('');
+            } else {
+                showNoResults();
+            }
+        }
+
+        function showNoResults() {
+            const resultsSection = document.getElementById('resultsSection');
+            const resultsContainer = document.getElementById('resultsContainer');
+            const resultsCount = document.getElementById('resultsCount');
+            
+            resultsSection.style.display = 'block';
+            resultsCount.textContent = '0件';
+            resultsContainer.innerHTML = '<div class="no-results">該当するユーザーが見つかりませんでした。</div>';
+        }
+
+        function createUserCard(user) {
+            const statusClass = user.status === 'active' ? 'active' : 'inactive';
+            const statusText = user.status === 'active' ? 'アクティブ' : '非アクティブ';
+            const initials = user.name.charAt(0);
+            
+            return `
+                <div class="user-card">
+                    <div class="user-header">
+                        <div class="user-avatar">${initials}</div>
+                        <div class="user-info">
+                            <h3>${user.name}</h3>
+                            <div class="user-id">ID: ${user.id}</div>
+                        </div>
+                        <span class="status ${statusClass}">${statusText}</span>
+                    </div>
+                    <div class="user-details">
+                        <div class="detail-item">
+                            <span class="detail-label">メールアドレス:</span>
+                            <span class="detail-value">${user.email}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">部署:</span>
+                            <span class="detail-value">${user.department}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">役職:</span>
+                            <span class="detail-value">${user.role}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">最終ログイン:</span>
+                            <span class="detail-value">${user.lastLogin}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">担当プロジェクト:</span>
+                            <span class="detail-value">${user.projects}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html> 
